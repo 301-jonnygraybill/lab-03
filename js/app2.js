@@ -59,7 +59,7 @@ Horns.allHorns.forEach(item => {
 
 Horns.allHorns.forEach(pushingItem => {
   // What do we need to do here to render each of the neighborhoods to the DOM?
-  $('#photo-template').append(pushingItem.toHtml());
+  $('#horns-template').append(pushingItem.toHtml());
 
 });
 
