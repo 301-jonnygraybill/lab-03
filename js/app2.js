@@ -8,7 +8,6 @@
 //   this.horns = horn.horns;
 // }
 
-Horns.allHorns = [];
 
 
 // REVIEW: This is another way to use a constructor to duplicate an array of raw data objects
@@ -24,6 +23,8 @@ function Horns(rawDataObject) {
   }
 }
 
+Horns.allHorns = [];
+
 Horns.prototype.toHtml = function () {
   // 1. Get the template from the HTML document
   let $template = $('#horns-template').html();
@@ -34,7 +35,7 @@ Horns.prototype.toHtml = function () {
 
   // 3. Do not forget to return the HTML from this method
   // and... put it in the DOM.
-  console.log(compiledTemplate(this));
+  // console.log(compiledTemplate(this));
   return compiledTemplate(this);
 };
 
@@ -49,19 +50,21 @@ Horns.readJson = () => {
     .then(Horns.loadHorns)
 }
 
-// Horns.loadHorns = () => {
-//   Horns.allHorns.forEach(rawDataObject => rawDataObject.render())
-// }
+Horns.loadHorns = () => {
+  Horns.allHorns.forEach(rawDataObject => rawDataObject.render())
+}
 
-Horns.allHorns.forEach(item => {
-  item.push(new Horns(item));
-});
+// Horns.allHorns.forEach(item => {
+//   item.push(new Horns(item));
+// });
+Horns.prototype.render = function () {
+  Horns.allHorns.forEach(pushingItem => {
+    console.log(pushingItem);
+    // What do we need to do here to render each of the neighborhoods to the DOM?
+    $('#photo-template').append(pushingItem.toHtml());
 
-Horns.allHorns.forEach(pushingItem => {
-  // What do we need to do here to render each of the neighborhoods to the DOM?
-  $('#horns-template').append(pushingItem.toHtml());
-
-});
+  });
+};
 
 
 
