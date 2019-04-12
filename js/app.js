@@ -10,6 +10,7 @@ function Horns(horn) {
 
 Horns.allHorns = [];
 
+
 Horns.prototype.render = function () {
   $('main').append('<div class="clone"></div>');
   let hornClone = $('div[class="clone"]');
@@ -24,7 +25,7 @@ Horns.prototype.render = function () {
   hornClone.find('h3').text(this.keyword);
   hornClone.find('h4').text(this.horns);
   hornClone.removeClass('clone');
-  hornClone.attr('class', this.keyword + ' horn-type ');
+  hornClone.attr('class', this.keyword + this.title + ' horn-type ');
 }
 
 Horns.readJson = () => {
