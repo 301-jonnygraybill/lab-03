@@ -1,0 +1,14 @@
+* {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+header {
+  padding-top: 50px;
+}
+
+footer {
+  text-align: center;
+  padding-top: 10px;
+  clear: both;
+}

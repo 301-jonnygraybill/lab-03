@@ -1,0 +1,33 @@
+h1, select {
+  text-align: center;
+  display: block;
+  margin: 0px auto;
+}
+
+h1 {
+  font-size: 60px;
+  font-family: 'Dokdo', cursive;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 25px;
+  text-align: center;
+  font-family: 'Dokdo', cursive;
+}
+
+p {
+  font-family: 'Cabin', sans-serif;
+  font-size: 15px;
+  width: 320px;
+  height: 50px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+img {
+  width: 360px;
+  height: 300px;
+  padding: 5px;
+  object-fit: cover;
+}
