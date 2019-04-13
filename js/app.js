@@ -48,7 +48,7 @@ $('select')
       console.log($(this).text());
       str += $(this).text() + '';
     });
-    $('div').text(str);
+    $('#event').text(str);
   })
   .change();
 // let filterHorns = () => {
