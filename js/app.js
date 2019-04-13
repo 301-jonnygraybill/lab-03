@@ -41,16 +41,22 @@ Horns.prototype.render = function () {
   $('#photo-template').append(this.toHtml());
 };
 
-$('select')
-  .change(function () {
-    var str = '';
+let filterHorns = () => {
+  // https://api.jquery.com/change/
+  $('select').change(function () {
+    let str = '';
     $('select option:selected').each(function() {
-      console.log($(this).text());
-      str += $(this).text() + '';
+      str += $(this).text();
+      console.log(`Keyword: ${str}`);
     });
-    $('#event').text(str);
+    // $(`.${str}`).hide();
+  //   if(str === 'default') {
+  //     console.log('Clear all hidden classes');
   })
-  .change();
+    .change();
+};
+
+filterHorns();
 // let filterHorns = () => {
 
 //   $('select.dropdown').on('change', () => {
