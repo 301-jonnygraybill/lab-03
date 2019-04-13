@@ -49,33 +49,14 @@ let filterHorns = () => {
       str += $(this).text();
       console.log(`Keyword: ${str}`);
     });
-    // $(`.${str}`).hide();
-  //   if(str === 'default') {
-  //     console.log('Clear all hidden classes');
+    $('div').hide();
+    $(`.${str}`).show();
+    if(str === 'default') {
+      console.log('Clear all hidden classes');
+    }
   })
-    .change();
 };
 
 filterHorns();
-// let filterHorns = () => {
-
-//   $('select.dropdown').on('change', () => {
-//     let selectedClass = $('select option:selected').val();
-//     if (selectedClass === 'default') {
-//       $('.horn-type:hidden').show();
-//     } else {
-//       $('.horn-type').toArray().forEach((val) => {
-//         val = $(val);
-//         if (!val.hasClass(selectedClass)) {
-//           val.hide();
-//         } else {
-//           val.show();
-//         }
-//       });
-//     }
-//   });
-// };
-
-// filterHorns();
 
 $(() => Horns.readJson());
