@@ -1,32 +1,27 @@
 'use strict';
 
-function Horns(horn) {
-  this.title = horn.title;
-  this.image_url = horn.image_url;
-  this.description = horn.description;
-  this.keyword = horn.keyword;
-  this.horns = horn.horns;
+function Horns(rawDataObject) {
+  // This will iterate over the object and assign the property name to the key variable
+  for (let key in rawDataObject) {
+    console.log('key', key);
+    // when using a variable name to identify the property, we MUST use bracket [] notation.
+    this[key] = rawDataObject[key];
+  }
 }
 
 Horns.allHorns = [];
 
+Horns.prototype.toHtml = function () {
+  // Get the template from the HTML document
+  let $template = $('#horns-template').html();
+  console.log('source', $template);
+  // Use Handlebars to "compile" the HTML
+  let compiledTemplate = Handlebars.compile($template);
 
-Horns.prototype.render = function () {
-  $('main').append('<div class="clone"></div>');
-  let hornClone = $('div[class="clone"]');
-
-  let hornHtml = $('#photo-template').html();
-
-  hornClone.html(hornHtml);
-
-  hornClone.find('h2').text(this.title);
-  hornClone.find('img').attr('src', this.image_url);
-  hornClone.find('p').text(this.description);
-  hornClone.find('h3').text(this.keyword);
-  hornClone.find('h4').text(this.horns);
-  hornClone.removeClass('clone');
-  hornClone.attr('class', this.keyword + this.title + ' horn-type ');
-}
+  // Do not forget to return the HTML from this method
+  // and... put it in the DOM.
+  return compiledTemplate(this);
+};
 
 Horns.readJson = () => {
   $.get('./data/page-1.json', 'json')
@@ -40,8 +35,12 @@ Horns.readJson = () => {
 }
 
 Horns.loadHorns = () => {
-  Horns.allHorns.forEach(horn => horn.render())
+  Horns.allHorns.forEach(animal => animal.render())
 }
+
+Horns.prototype.render = function () {
+  $('#photo-template').append(this.toHtml());
+};
 
 let filterHorns = () => {
 
