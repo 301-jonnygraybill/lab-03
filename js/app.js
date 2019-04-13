@@ -13,10 +13,9 @@ Horns.allHorns = [];
 
 Horns.prototype.toHtml = function () {
   // Get the template from the HTML document
-  let $template = $('#horns-template').html();
-  console.log('source', $template);
+  let template = $('#horns-template').html();
   // Use Handlebars to "compile" the HTML
-  let compiledTemplate = Handlebars.compile($template);
+  let compiledTemplate = Handlebars.compile(template);
 
   // Do not forget to return the HTML from this method
   // and... put it in the DOM.
@@ -43,24 +42,40 @@ Horns.prototype.render = function () {
 };
 
 let filterHorns = () => {
-
-  $('select.dropdown').on('change', () => {
-    let selectedClass = $('select option:selected').val();
-    if (selectedClass === 'default') {
-      $('.horn-type:hidden').show();
-    } else {
-      $('.horn-type').toArray().forEach((val) => {
-        val = $(val);
-        if (!val.hasClass(selectedClass)) {
-          val.hide();
-        } else {
-          val.show();
-        }
-      });
-    }
-  });
+  // https://api.jquery.com/change/
+  $('select').change(function () {
+    let str = '';
+    $('select option:selected').each(function() {
+      str += $(this).text();
+      console.log(`Keyword: ${str}`);
+    });
+    // $(`.${str}`).hide();
+  //   if(str === 'default') {
+  //     console.log('Clear all hidden classes');
+  })
+    .change();
 };
 
 filterHorns();
+// let filterHorns = () => {
+
+//   $('select.dropdown').on('change', () => {
+//     let selectedClass = $('select option:selected').val();
+//     if (selectedClass === 'default') {
+//       $('.horn-type:hidden').show();
+//     } else {
+//       $('.horn-type').toArray().forEach((val) => {
+//         val = $(val);
+//         if (!val.hasClass(selectedClass)) {
+//           val.hide();
+//         } else {
+//           val.show();
+//         }
+//       });
+//     }
+//   });
+// };
+
+// filterHorns();
 
 $(() => Horns.readJson());
