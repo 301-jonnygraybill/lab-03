@@ -8,7 +8,7 @@
 //   this.horns = horn.horns;
 // }
 
-
+let renderTime = 0;
 
 // REVIEW: This is another way to use a constructor to duplicate an array of raw data objects
 
@@ -51,22 +51,19 @@ Horns.readJson = () => {
 }
 
 Horns.loadHorns = () => {
-  Horns.allHorns.forEach(rawDataObject => rawDataObject.render())
+  Horns.allHorns.forEach(animal => animal.render())
 }
 
 // Horns.allHorns.forEach(item => {
 //   item.push(new Horns(item));
 // });
 Horns.prototype.render = function () {
-  Horns.allHorns.forEach(pushingItem => {
-    console.log(pushingItem);
+  // Horns.allHorns.forEach(pushingItem => {
+    // console.log('Pushing item: ', pushingItem);
     // What do we need to do here to render each of the neighborhoods to the DOM?
-    $('#photo-template').append(pushingItem.toHtml());
-
-  });
+    $('#photo-template').append(this.toHtml());
+  // });
 };
-
-
 
 let filterHorns = () => {
 
@@ -89,12 +86,12 @@ let filterHorns = () => {
 
 filterHorns();
 
-let createClass = function () {
-  Horns.allHorns.forEach(item => {
-    $(item).attr('class', this.keyword + this.title + ' horn-type ');
-  })
-}
+// let createClass = function () {
+//   Horns.allHorns.forEach(item => {
+//     $(item).attr('class', this.keyword + this.title + ' horn-type ');
+//   })
+// }
 
-createClass();
+// createClass();
 
 $(() => Horns.readJson());
