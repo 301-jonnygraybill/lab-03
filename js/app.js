@@ -51,7 +51,8 @@ let filterHorns = () => {
     });
     $('div').hide();
     $(`.${str}`).show();
-    if(str === 'default') {
+    if(str === 'Filter by Keyword') {
+      $('.beasts').show();
       console.log('Clear all hidden classes');
     }
   })
