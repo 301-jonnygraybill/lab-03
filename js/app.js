@@ -1,63 +1,71 @@
 'use strict';
 
 function Horns(rawDataObject) {
-  // This will iterate over the object and assign the property name to the key variable
   for (let key in rawDataObject) {
-    console.log('key', key);
-    // when using a variable name to identify the property, we MUST use bracket [] notation.
     this[key] = rawDataObject[key];
   }
 }
 
 Horns.allHorns = [];
+Horns.keywords = [];
 
 Horns.prototype.toHtml = function () {
-  // Get the template from the HTML document
-  let template = $('#horns-template').html();
-  // Use Handlebars to "compile" the HTML
-  let compiledTemplate = Handlebars.compile(template);
-
-  // Do not forget to return the HTML from this method
-  // and... put it in the DOM.
+  let $template = $('#horns-template').html();
+  let compiledTemplate = Handlebars.compile($template);
   return compiledTemplate(this);
 };
 
-Horns.readJson = () => {
-  $.get('./data/page-1.json', 'json')
+Horns.readJson = ($value) => {
+  $.get(`./data/${$value}.json`, 'json')
     .then(data => {
       data.forEach(item => {
         Horns.allHorns.push(new Horns(item));
-        $('#keyword-dropdown').append(`<option id="${item.keyword}">${item.keyword}</option>`)
-      })
+      });
     })
+    .then(populateKeywords)
+    .then(sortKeywords)
     .then(Horns.loadHorns)
+    .then(Horns.loadKeyword);
+}
+
+function populateKeywords() {
+  Horns.allHorns.forEach(horn => {
+    if (!Horns.keywords.includes(horn.keyword)) {
+      Horns.keywords.push(horn.keyword)
+    }
+  })
+}
+
+function sortKeywords() {
+  Horns.keywords.sort();
 }
 
 Horns.loadHorns = () => {
-  Horns.allHorns.forEach(animal => animal.render())
-}
-
-Horns.prototype.render = function () {
-  $('#photo-template').append(this.toHtml());
+  Horns.allHorns.forEach(horn => {
+    $('#horned-animals').append(horn.toHtml())
+  });
 };
 
-let filterHorns = () => {
-  // https://api.jquery.com/change/
-  $('select').change(function () {
-    let str = '';
-    $('select option:selected').each(function() {
-      str += $(this).text();
-      console.log(`Keyword: ${str}`);
-    });
-    $('div').hide();
-    $(`.${str}`).show();
-    if(str === 'Filter by Keyword') {
-      $('.beasts').show();
-      console.log('Clear all hidden classes');
-    }
+$(() => Horns.readJson($value));
+let $value = 'page-1';
+
+Horns.loadKeyword = () => {
+  Horns.keywords.forEach((keyword) => {
+    $('#filter').append(`<option class="filter-remove" value="${keyword}">${keyword}</option>`);
   })
 };
 
-filterHorns();
+$('#filter').on('change', function () {
+  let $selection = $(this).val();
+  $('div').hide();
+  $(`div[class="${$selection}"]`).show();
+});
 
-$(() => Horns.readJson());
+$('#click').on('change', function() {
+  $('.filter-remove').remove();
+  $('div').remove();
+  let $value = $(this).val();
+  Horns.allHorns = [];
+  Horns.keywords = [];
+  Horns.readJson($value);
+});

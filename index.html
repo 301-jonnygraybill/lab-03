@@ -9,26 +9,29 @@
     <link rel="stylesheet" type="text/css" href="css/modules.css">
     <link href="https://fonts.googleapis.com/css?family=Cabin|Dokdo" rel="stylesheet">
     <script id="horns-template" type="text/x-handlebars-template">
-      <div class="{{keyword}} beasts">
+      <div id="photo-template" class="{{keyword}}">
       <h2>{{title}}</h2>
-      <img src="{{image_url}}" alt="{{title}}">
-      <p>{{description}}</p>
+      <img class="" src="{{image_url}}" alt="{{title}}">
+      <p id="description">{{description}}</p>
+      <p id="keyword">{{keyword}}</p>
+      <p id="horns">{{horns}}</p>
     </div>
     </script>
   </head>
   <body>
     <header>
       <h1>The Gallery of Horns</h1>
-
-      <select id="keyword-dropdown" class="dropdown">
-        <option value="default">Filter by Keyword</option>
+      <select id="click">
+        <option value="default">Select By Page</option>
+        <option class="" value="page-1">Page-1</option>
+        <option class="" value="page-2">Page-2</option>
+      </select>
+      <select id="filter">
+        <option value="default">Filter By Keyword</option>
       </select>
     </header>
     <main>
-
-      <section id="photo-template">
-        
-      </section>
+      <section id="horned-animals"></section>
     </main>
     <footer>
       &copy; 2018 Code Fellows

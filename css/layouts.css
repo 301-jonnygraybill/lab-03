@@ -1,4 +1,10 @@
 div {
-  float: left;
   padding-bottom: 30px
+}
+
+section {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
 }
